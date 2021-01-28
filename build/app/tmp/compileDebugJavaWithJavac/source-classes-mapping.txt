@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+top/neoapp/readhub/BuildConfig.java
+ top.neoapp.readhub.BuildConfig
