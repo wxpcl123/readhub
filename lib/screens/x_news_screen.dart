@@ -77,6 +77,7 @@ class _XNewsScreenState extends State<XNewsScreen>
     super.dispose();
     refreshController?.dispose();
     scrollController?.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override

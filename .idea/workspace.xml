@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e1b236c3-5213-4aba-a09b-5b53fcbb5e60" name="Default Changelist" comment="" />
+    <list default="true" id="e1b236c3-5213-4aba-a09b-5b53fcbb5e60" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/lib/controller/instant_view_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/instant_view_controller.dart" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1nCPQOnGo8JxmHsd1onnkhRWDhH" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -50,5 +55,9 @@
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
     <state width="1255" height="191" key="GridCell.Tab.0.right/2560.71.1280.777/0.23.2560.1057@0.23.2560.1057" timestamp="1610892579919" />
+    <state x="430" y="475" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1612054958991">
+      <screen x="0" y="23" width="2560" height="1057" />
+    </state>
+    <state x="430" y="475" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2560.71.1280.777/0.23.2560.1057@0.23.2560.1057" timestamp="1612054958991" />
   </component>
 </project>

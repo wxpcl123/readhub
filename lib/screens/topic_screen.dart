@@ -76,6 +76,7 @@ class _TopicScreenState extends State<TopicScreen>
     super.dispose();
     scrollController?.dispose();
     refreshController?.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override

@@ -13,8 +13,8 @@ class InstantViewController extends GetxController {
 
   InstantViewModel instantViewModel = InstantViewModel();
 
-  renewTopicId(String nTopicId) {
-    this.topicId = nTopicId;
+  renewTopicId(String newTopicId) {
+    this.topicId = newTopicId;
     _initModel();
   }
 

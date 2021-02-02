@@ -97,10 +97,7 @@ class TopicItemView extends StatelessWidget {
   }
 
   Widget topicTitleView(BuildContext context, TopicData topicData) {
-    var titleStyle = TextStyle(
-        // color: Theme.of(context).primaryColorLight,
-        fontSize: 16,
-        fontWeight: FontWeight.w500);
+    var titleStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
     var topTitleStyle = TextStyle(
         color: Theme.of(context).brightness == Brightness.dark
             ? Theme.of(context).accentColor

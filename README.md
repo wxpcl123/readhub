@@ -11,7 +11,7 @@ ReadHub对科技新闻、热点资讯进行了一定程度的聚合和筛选，�
 
 有图有真相, 没图的话大家就没兴趣读下去, 是吧! 那就先把操作动画放出来吧.
 
-![操作动画](https://neoapp.oss-cn-shanghai.aliyuncs.com/readhub_ani02.gif)
+![操作动画](https://neoapp.oss-cn-shanghai.aliyuncs.com/readhub_ani02_yy.gif)
 
 ## **简单介绍一下API**
 感谢官方开放了API，虽然不是正式的，但对于第三方却保持着一份开放的心态，感谢！ 
