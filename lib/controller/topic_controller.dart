@@ -104,11 +104,9 @@ class TopicController extends GetxController {
     if (!await _checkFirstAlive()) return;
 
     try {
-      print('完成_firstOrder的检查, 现在加载若干topic来看看');
       var res =
           await _dio.get('/topic', queryParameters: {'pageSize': '$_pageSize'});
 
-      print('statuscode= ${res.statusCode}');
       if (res.statusCode == 200) {
         if (res.data == null) {
           showSnack('错误', '获取到的话题有错误, 也可能服务器提供的数据有错误');
@@ -117,38 +115,38 @@ class TopicController extends GetxController {
         var tmpTopics = TopicModel.fromJson(res.data).topicDatas;
 
         List<String> orderList = [];
-        // 取消置顶
-        // 若新拉取的第一个topic不为置顶的话, 说明官方将置顶清空了, 我们也要清空置顶
+        // 检查置顶(order>1,000,000, 普通topic的order只有6位数),
+        // 若新拉取的第一个topic不为置顶的话, 说明官方将置顶清空了, 我们也要清空置顶, 拉取的全部topics都是普通topic
+        // 若第一个就是置顶项,  检查一下数量, 加入到_topTopics里, 剩下的是普通topic
         if (tmpTopics.first.order < 1000000) {
           topics.removeRange(0, _topTopics.length);
           _topTopics.clear();
-        }
-
-        // 检查里面是否有置顶内容(order>1,000,000, 普通topic的order只有6位数), 有的话, 检查一下加入到_topTopics里
-        // 没有置顶内容, 则准备检查到底有多少条更新项
-
-        tmpTopics.forEach((topicData) {
-          if (topicData.order > 1000000) {
-            // 有置顶内容也要看下是否已包含了
-            bool included = false;
-            _topTopics.forEach((topTopic) {
-              if (topTopic.id == topicData.id) {
-                included = true;
-              }
-            });
-            if (!included) {
-              _topTopics.insert(0, topicData);
-              topics.insert(0, topicData);
-            }
-          } else {
+          tmpTopics.forEach((topicData) {
             orderList.add(topicData.order.toString());
-          }
-        });
-
+          });
+        } else {
+          tmpTopics.forEach((topicData) {
+            if (topicData.order > 1000000) {
+              // 有置顶内容也要看下是否已包含了, 包含了则抛弃, 不包含则插入
+              bool included = false;
+              _topTopics.forEach((topTopic) {
+                if (topTopic.id == topicData.id) {
+                  included = true;
+                }
+              });
+              if (!included) {
+                _topTopics.insert(0, topicData);
+                topics.insert(0, topicData);
+              }
+            } else {
+              orderList.add(topicData.order.toString());
+            }
+          });
+        }
         // 后面都是普通topic
         tmpTopics = tmpTopics.sublist(tmpTopics.length - orderList.length);
 
-        // 如果:
+        // 普通topic的处理, 如果:
         // 1-刷新太频繁, 可能只有部分(>=0个)topic是新增加的
         if (orderList.contains(_firstOrder)) {
           _normalTopics.insertAll(
