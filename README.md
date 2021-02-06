@@ -557,5 +557,32 @@ _normalTopics.addAll(tmpTopics.sublist(_topTopics.length));
 
 ![github](https://neoapp.oss-cn-shanghai.aliyuncs.com/readhub_code.png)
 
+## **2021-02-06更新**
 
+难得等到官方又出现置顶了, 然后我发现置顶算法有问题, 所以更新了一下,  试用下来好像OK了.
+
+
+```dart
+tmpTopics.forEach((topicData) {
+  if (topicData.order > 1000000) {
+    // 有置顶内容也要看下是否已包含了
+    bool included = false;
+    _topTopics.forEach((topTopic) {
+      if (topTopic.id == topicData.id) {
+        included = true;
+      } 
+    });
+    if (!included) {
+      _topTopics.insert(0, topicData);
+      topics.insert(0, topicData);
+    }
+  } else {
+    orderList.add(topicData.order.toString());
+  }
+});
+```
+
+效果如图:
+
+![置顶](toplizer01.png)
 

@@ -69,6 +69,7 @@ class TopicController extends GetxController {
 
       if (res.statusCode == 200) {
         int count = 0;
+        // 最顶的一条topic被删除, 则res.data == null || res.data == {}
         while (res.data.toString().length <= 4) {
           print('最顶的一条topic被删除了, :( ,挑选下面一条topic的order作为下拉刷新的依据');
           _normalTopics.removeAt(0);
@@ -120,10 +121,21 @@ class TopicController extends GetxController {
         tmpTopics.forEach((topicData) {
           if (topicData.order > 1000000) {
             // 有置顶内容也要看下是否已包含了
-            if (!_topTopics.contains(topicData)) {
+            bool included = false;
+            _topTopics.forEach((topTopic) {
+              if (topTopic.id == topicData.id) {
+                included = true;
+              }
+            });
+            if (!included) {
               _topTopics.insert(0, topicData);
               topics.insert(0, topicData);
             }
+            // if (!_topTopics.contains(topicData)) {
+            //   print('刷新取得了新的置顶Topic, 没有包含在原来置顶列表里');
+            //   _topTopics.insert(0, topicData);
+            //   topics.insert(0, topicData);
+            // }
           } else {
             orderList.add(topicData.order.toString());
           }
