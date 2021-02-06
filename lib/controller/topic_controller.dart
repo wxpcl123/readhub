@@ -108,16 +108,25 @@ class TopicController extends GetxController {
       var res =
           await _dio.get('/topic', queryParameters: {'pageSize': '$_pageSize'});
 
+      print('statuscode= ${res.statusCode}');
       if (res.statusCode == 200) {
         if (res.data == null) {
           showSnack('错误', '获取到的话题有错误, 也可能服务器提供的数据有错误');
           return;
         }
         var tmpTopics = TopicModel.fromJson(res.data).topicDatas;
-        //
+
+        List<String> orderList = [];
+        // 取消置顶
+        // 若新拉取的第一个topic不为置顶的话, 说明官方将置顶清空了, 我们也要清空置顶
+        if (tmpTopics.first.order < 1000000) {
+          topics.removeRange(0, _topTopics.length);
+          _topTopics.clear();
+        }
+
         // 检查里面是否有置顶内容(order>1,000,000, 普通topic的order只有6位数), 有的话, 检查一下加入到_topTopics里
         // 没有置顶内容, 则准备检查到底有多少条更新项
-        List<String> orderList = [];
+
         tmpTopics.forEach((topicData) {
           if (topicData.order > 1000000) {
             // 有置顶内容也要看下是否已包含了
@@ -131,15 +140,11 @@ class TopicController extends GetxController {
               _topTopics.insert(0, topicData);
               topics.insert(0, topicData);
             }
-            // if (!_topTopics.contains(topicData)) {
-            //   print('刷新取得了新的置顶Topic, 没有包含在原来置顶列表里');
-            //   _topTopics.insert(0, topicData);
-            //   topics.insert(0, topicData);
-            // }
           } else {
             orderList.add(topicData.order.toString());
           }
         });
+
         // 后面都是普通topic
         tmpTopics = tmpTopics.sublist(tmpTopics.length - orderList.length);
 
